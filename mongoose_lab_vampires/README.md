@@ -67,7 +67,7 @@ var vampire = {
 
 ## Inserting Seed Data Using Mongoose
 
-Insert into the database using **create** method:
+Insert data into the database using the following steps:
 
 ### Add the vampire data that we gave you
 
