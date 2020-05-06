@@ -7,7 +7,7 @@ const seedData = require("./models/seed_vampires.js");
 const Vampire = require("./models/vampire.js");
 
 // Configuration
-const mongoURI = "mongodb://localhost:27017/" + "vampires";
+const mongoURI = "mongodb://localhost:27017/vampires";
 const db = mongoose.connection;
 
 // Connect to Mongo
