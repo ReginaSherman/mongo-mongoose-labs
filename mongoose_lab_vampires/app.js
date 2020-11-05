@@ -10,9 +10,18 @@ const Vampire = require('./models/vampire.js');
 const mongoURI = 'mongodb://localhost:27017/' + 'vampires';
 const db = mongoose.connection;
 
-// Connect to Mongo
-mongoose.connect(mongoURI);
-
+// Connect to Mongo and fix deprecation warnings
+mongoose.connect(
+	mongoURI,
+	{
+		useNewUrlParser: true,
+		useCreateIndex: true,
+		useUnifiedTopology: true,
+	},
+	() => {
+		console.log('connection with MongoDB is established');
+	}
+);
 // Connection Error/Success
 db.on('error', (err) => console.log(err.message + ' is Mongod not running?'));
 db.on('connected', () => console.log('mongo connected: ', mongoURI));
@@ -204,10 +213,10 @@ Write Your Code Below
 // })
 
 //love brooding
-// Vampire.find({  loves: {  $in: "brooding"  } }, (err, vampires) => {
-//   console.log(vampires);
-//   db.close();
-// })
+// Vampire.find({ loves: 'brooding' }, (err, vampires) => {
+// 	console.log(vampires);
+// 	db.close();
+// });
 
 //love at least one of the following: appearing innocent, trickery, lurking in rotting mansions, R&B music
 // Vampire.find({ $or: [
