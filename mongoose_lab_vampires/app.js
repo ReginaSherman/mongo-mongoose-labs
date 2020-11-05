@@ -41,7 +41,7 @@ Write Your Code Below
 // 		console.log(err);
 // 	}
 // 	console.log('added provided vampire data', vampires);
-// 	mongoose.connection.close();
+// 	db.close();
 // });
 
 // const moreVampires = [
@@ -100,50 +100,57 @@ Write Your Code Below
 // 	db.close();
 // });
 
-//find all the female vampires in the db
+/**********************************************************************
+Select by comparison
+**********************************************************************/
+
+//1. find all the female vampires in the db
 // Vampire.find({ gender: 'f' }, (err, vampires) => {
 // 	console.log(vampires);
 // 	db.close();
 // });
 
-//greater than 500 victims
+//2. greater than 500 victims
 // Vampire.find({  victims: {  $gt: 500  } }, (err, vampires) => {
 //   console.log(vampires);
 //   db.close();
 // })
 
-//fewer than or equal to 150 victims
+//3. fewer than or equal to 150 victims
 // Vampire.find({  victims: {  $lte: 150  } }, (err, vampires) => {
 //   console.log(vampires);
 //   db.close();
 // })
 
-//not equal to 210234
+//4. victim count not equal to 210234
 // Vampire.find({  victims: {  $ne: 210234  } }, (err, vampires) => {
 //   console.log(vampires);
 //   db.close();
 // })
 
-//have greater than 150 AND fewer than 500 victims
+//5. have greater than 150 AND fewer than 500 victims
 // Vampire.find({  $and: [ {victims: { $gt: 150}}, {victims: { $lt: 500}}]}, (err, vampires) => {
 //   console.log(vampires);
 //   db.close();
 // })
 
-//have a key of title
+/**********************************************************************
+Select by exists or does not exist
+**********************************************************************/
+
+//1. have a key of title
 // Vampire.find({  title: {  $exists: true } }, (err, vampires) => {
 //   console.log(vampires);
 //   db.close();
 // })
 
-//do not have a key of 'victims'
+//2. do not have a key of 'victims'
 // Vampire.find({  victims: {  $exists: false } }, (err, vampires) => {
 //   console.log(vampires);
 //   db.close();
 // })
 
-//have a title AND no victims
-//victims property doesn't exist
+//3. have a title AND no victims
 // Vampire.find(
 // 	{ $and: [{ title: { $exists: true } }, { victims: { $exists: false } }] },
 // 	(err, vampires) => {
@@ -152,7 +159,7 @@ Write Your Code Below
 // 	}
 // );
 
-//have victims and victims are greater than 1000
+//4. have victims and victims are greater than 1000
 // Vampire.find({ $and: [
 //   {victims: {  $exists: true }},
 //   {victims: {  $gt: 1000 }}
@@ -161,7 +168,11 @@ Write Your Code Below
 //   db.close();
 // })
 
-//are from New York, New York, US or New Orleans, Louisiana, US -- USE OR OPERATOR
+/**********************************************************************
+Select with OR
+**********************************************************************/
+
+//1. are from New York, New York, US or New Orleans, Louisiana, US -- USE OR OPERATOR
 // Vampire.find({ $or: [
 //   {location: "New York, New York, US"},
 //   {location: "New Orleans, Louisiana, US"}
@@ -170,16 +181,16 @@ Write Your Code Below
 //   db.close();
 // })
 
-//love brooding or being tragic -- USE OR OPERATOR
-Vampire.find(
-	{ $or: [{ loves: { $in: 'brooding' } }, { loves: { $in: 'being tragic' } }] },
-	(err, vampires) => {
-		console.log(vampires);
-		db.close();
-	}
-);
+//2. love brooding or being tragic -- USE OR OPERATOR
+// Vampire.find(
+// 	{ $or: [{ loves: { $in: 'brooding' } }, { loves: { $in: 'being tragic' } }] },
+// 	(err, vampires) => {
+// 		console.log(vampires);
+// 		db.close();
+// 	}
+// );
 
-//have more than 1000 victims or love marshmallows
+//3. have more than 1000 victims or love marshmallows
 // Vampire.find({ $or: [
 //   {victims: { $gt: 1000}},
 //   {loves: { $in: "marshmallows"}}
@@ -188,7 +199,7 @@ Vampire.find(
 //   db.close();
 // })
 
-//red hair or green eyes
+//4. red hair or green eyes
 // Vampire.find({ $or: [
 //   {hair_color: "red"},
 //   {eye_color: "green"}
@@ -197,8 +208,12 @@ Vampire.find(
 //   db.close();
 // })
 
-//love either frilly shirtsleeves or frilly collars
-//can use or operator as above or in operator as below
+/**********************************************************************
+Select objects that match one of several values
+**********************************************************************/
+
+//1. love either frilly shirtsleeves or frilly collars
+//can use $or operator as above examples, or $in operator as below
 // Vampire.find(
 // 	{ loves: { $in: ['frilly shirtsleeves', 'frilly collars'] } },
 // 	(err, vampires) => {
@@ -207,19 +222,13 @@ Vampire.find(
 // 	}
 // );
 
-//are not from rome
-// Vampire.find({  location: {  $ne: "Rome, Italy"  } }, (err, vampires) => {
-//   console.log(vampires);
-//   db.close();
-// })
-
-//love brooding
+//2. love brooding
 // Vampire.find({ loves: 'brooding' }, (err, vampires) => {
 // 	console.log(vampires);
 // 	db.close();
 // });
 
-//love at least one of the following: appearing innocent, trickery, lurking in rotting mansions, R&B music
+//3. love at least one of the following: appearing innocent, trickery, lurking in rotting mansions, R&B music
 // Vampire.find(
 // 	{
 // 		loves: {
@@ -237,7 +246,11 @@ Vampire.find(
 // 	}
 // );
 
-//love ribbons but do not have brown eyes
+/**********************************************************************
+Negative Selection
+**********************************************************************/
+
+//1. love ribbons but do not have brown eyes
 // Vampire.find({ $and: [
 //   {loves: {  $in: "ribbons" }},
 //   {eye_color: {  $ne: "brown" }}
@@ -246,13 +259,13 @@ Vampire.find(
 //   db.close();
 // })
 
-//are not from rome
+//2. are not from rome
 // Vampire.find({ location: { $ne: "Rome, Italy"}}, (err, vampires) => {
 //   console.log(vampires);
 //   db.close();
 // })
 
-// do not love any of the following: [fancy cloaks, frilly shirtsleeves, appearing innocent, being tragic, brooding]
+//3. do not love any of the following: [fancy cloaks, frilly shirtsleeves, appearing innocent, being tragic, brooding]
 // Vampire.find(
 // 	{
 // 		loves: {
@@ -271,14 +284,18 @@ Vampire.find(
 // 	}
 // );
 
-//have not killed more than 200 people
+//4. have not killed more than 200 people
 // Vampire.find({ victims: { $lte: 200}}, (err, vampires) => {
 //   console.log(vampires);
 //   db.close();
 // })
 // });
 
-//replace the vampire called 'Claudia' with a vampire called 'Eve'. 'Eve' will have a key called 'portrayed_by' with the value 'Tilda Swinton'
+/**********************************************************************
+Replace
+**********************************************************************/
+
+//1. replace the vampire called 'Claudia' with a vampire called 'Eve'. 'Eve' will have a key called 'portrayed_by' with the value 'Tilda Swinton'
 // Vampire.findOneAndUpdate(
 // 	{ name: 'Claudia' },
 // 	{ $set: { name: 'Eve', portrayed_by: 'Tilda Swinton' } },
@@ -289,7 +306,7 @@ Vampire.find(
 // 	}
 // );
 
-//replace the first male vampire with another whose name is 'Guy Man', and who has a key 'is_actually' with the value 'were-lizard'
+//2. replace the first male vampire with another whose name is 'Guy Man', and who has a key 'is_actually' with the value 'were-lizard'
 // Vampire.findOneAndUpdate(
 // 	{ gender: 'm' },
 // 	{ $set: { name: 'Guy Man', is_actually: 'were-lizard' } },
@@ -300,7 +317,11 @@ Vampire.find(
 // 	}
 // );
 
-//update eve to have gender m
+/**********************************************************************
+Update
+**********************************************************************/
+
+//1. update eve to have gender m
 // Vampire.findOneAndUpdate(
 //   {name: "Eve"},
 //   {$set: {gender: "m"}},
@@ -310,7 +331,7 @@ Vampire.find(
 //     db.close();
 //   })
 
-//Rename 'Eve's' name field to 'moniker'
+//2. Rename 'Eve's' name field to 'moniker'
 // Vampire.findOneAndUpdate(
 // 	{ name: 'Eve' },
 // 	{ $rename: { name: 'moniker' } },
@@ -321,7 +342,7 @@ Vampire.find(
 // 	}
 // );
 
-//We now no longer want to categorize female gender as "f", but rather as fems. Update all females so that the they are of gender "fems".
+//3. We now no longer want to categorize female gender as "f", but rather as fems. Update all females so that the they are of gender "fems".
 // Vampire.updateMany(
 // 	{ gender: 'f' },
 // 	{ $set: { gender: 'fems' } },
@@ -338,20 +359,18 @@ Vampire.find(
 // 	db.close();
 // });
 
-//Remove a single document wherein the hair_color is 'brown'
+/**********************************************************************
+Remove
+**********************************************************************/
+
+//1. Remove a single document wherein the hair_color is 'brown'
 // Vampire.findOneAndRemove({hair_color: "brown"}, (err, vampires) => {
 //   console.log(vampires);
 //   db.close();
 // })
 
-//We found out that the vampires with the blue eyes were just fakes! Let's remove all the vampires who have blue eyes from our database.
+//2. We found out that the vampires with the blue eyes were just fakes! Let's remove all the vampires who have blue eyes from our database.
 // Vampire.deleteMany({eye_color: "blue"}, (err, vampires) => {
-//   console.log(vampires);
-//   db.close();
-// })
-
-//print the vampires collection
-// Vampire.find({}, (err, vampires) => {
 //   console.log(vampires);
 //   db.close();
 // })
