@@ -32,7 +32,7 @@ If this database does not exist, it will be created
 Let's create a collection for all the beings that have bounties.
 
 ```js
-db.createCollection("bounties");
+db.createCollection('bounties');
 ```
 
 We should get an `ok` message.
@@ -43,21 +43,21 @@ Let's add our first bounty
 
 ```js
 db.bounties.insert({
-  name: "Han Solo",
-  wantedFor: "Owing money",
-  client: "Jabba the Hut",
-  reward: 1000000,
-  ship: "Millennium Falcon",
-  hunters: [
-    "Bobba Fett",
-    "Dengar",
-    "IG-88",
-    "Zuckuss",
-    "Greedo",
-    "Bossk",
-    "4-LOM"
-  ],
-  captured: false
+	name: 'Han Solo',
+	wantedFor: 'Owing money',
+	client: 'Jabba the Hut',
+	reward: 1000000,
+	ship: 'Millennium Falcon',
+	hunters: [
+		'Bobba Fett',
+		'Dengar',
+		'IG-88',
+		'Zuckuss',
+		'Greedo',
+		'Bossk',
+		'4-LOM',
+	],
+	captured: false,
 });
 ```
 
@@ -71,97 +71,124 @@ Now insert a few more bounties
 
 ```js
 db.bounties.insert([
-  {
-    name: "Han Solo",
-    wantedFor: "Owing money",
-    client: "Jabba the Hut",
-    reward: 1000000,
-    ship: "Millennium Falcon",
-    hunters: [
-      "Bobba Fett",
-      "Dengar",
-      "IG-88",
-      "Zuckuss",
-      "Greedo",
-      "Bossk",
-      "4-LOM"
-    ],
-    captured: false
-  },
-  {
-    name: "Rocket",
-    wantedFor: "Stealing Batteries",
-    client: "Ayesha High Priestess of the Sovereign",
-    reward: 1000000000,
-    ship: "The Milano",
-    hunters: ["Nebula", "Ravagers"],
-    captured: false
-  },
-  {
-    name: "Sara Lance",
-    wantedFor: "Screwing up the timeline, causing anachronisms",
-    client: "Time Bureau",
-    reward: 50000,
-    ship: "Waverider",
-    hunters: ["Chronos"],
-    captured: false
-  },
-  {
-    name: "Malcolm Reynolds",
-    wantedFor: "Aiming to misbehave",
-    client: "The Alliance",
-    reward: 40000,
-    ship: "Serenity",
-    hunters: ["Jubal Early"],
-    captured: false
-  },
-  {
-    name: "Starbuck",
-    wantedFor: "Disobeying Captain's orders",
-    client: "Captain Adama",
-    ship: "Demetrius",
-    reward: 1000,
-    hunters: ["Apollo"],
-    captured: true
-  }
+	{
+		name: 'Han Solo',
+		wantedFor: 'Owing money',
+		client: 'Jabba the Hut',
+		reward: 1000000,
+		ship: 'Millennium Falcon',
+		hunters: [
+			'Bobba Fett',
+			'Dengar',
+			'IG-88',
+			'Zuckuss',
+			'Greedo',
+			'Bossk',
+			'4-LOM',
+		],
+		captured: false,
+	},
+	{
+		name: 'Rocket',
+		wantedFor: 'Stealing Batteries',
+		client: 'Ayesha High Priestess of the Sovereign',
+		reward: 1000000000,
+		ship: 'The Milano',
+		hunters: ['Nebula', 'Ravagers'],
+		captured: false,
+	},
+	{
+		name: 'Sara Lance',
+		wantedFor: 'Screwing up the timeline, causing anachronisms',
+		client: 'Time Bureau',
+		reward: 50000,
+		ship: 'Waverider',
+		hunters: ['Chronos'],
+		captured: false,
+	},
+	{
+		name: 'Malcolm Reynolds',
+		wantedFor: 'Aiming to misbehave',
+		client: 'The Alliance',
+		reward: 40000,
+		ship: 'Serenity',
+		hunters: ['Jubal Early'],
+		captured: false,
+	},
+	{
+		name: 'Starbuck',
+		wantedFor: "Disobeying Captain's orders",
+		client: 'Captain Adama',
+		ship: 'Demetrius',
+		reward: 1000,
+		hunters: ['Apollo'],
+		captured: true,
+	},
 ]);
 ```
 
 ## Read/Query
 
-- Do a query to see all the bounties
-- Do a query to find the bounty whose client is `Time Bureau`
-- Do a query to find the bounties who have been `captured`
-- Do a query specific to the bounty you inserted
-- Do a query to just return the names of all the bounties
+- Do a query to see all the bounties: db.bounties.find()
+- Do a query to find the bounty whose client is `Time Bureau`: db.bounties.find({client: "Time Bureau"})
+- Do a query to find the bounties who have been `captured`: db.bounties.find({captured: true})
+- Do a query specific to the bounty you inserted: db.bounties.find({name: "Starbuck"})
+- Do a query to just return the names of all the bounties: db.bounties.find({}, {name: 1, \_id: 0})
 
 ## Remove
 
-- Starbuck and the Captain have come to an understanding. Remove her record
-- find and remove the duplicate record - be sure to JUST remove the one copy
+- Starbuck and the Captain have come to an understanding. Remove her record: db.bounties.remove({name: "Starbuck"}):
+- find and remove the duplicate record - be sure to JUST remove the one copy: db.bounties.remove({name: "Han Solo"}, {justOne: true})
 
 ## Update
 
-Update `Sara Lance`'s name to be her superhero alias 'White Canary'
+Update `Sara Lance`'s name to be her superhero alias 'White Canary': db.bounties.update({name: "Sara Lance"}, {\$set: {name: "White Canary"}})
 
-Update Rocket's ship to be `The Milano 2`
+<!-- use $set to avoid overwriting other values -->
+
+Update Rocket's ship to be `The Milano 2`: db.bounties.update({name: "Rocket"}, {\$set: {ship: "The Milano 2"}})
 
 ### Intermediate Mongo
 
 Find the [INTERMEDIATE_MONGO.md lecture notes](https://git.generalassemb.ly/seir-826/w05d02-intro-to-mongo-mongoose/blob/master/advanced_mongo/2.intermediate_mongo.md). Follow through each of the explanations. Follow the commands and perform appropriate finds after each update call to see the results
 
-- Find the bounties that are greater than `100000`
-- Find the bounties that are less than `40000`
-- Find the bounties that are less than or equal to `40000`
+- Find the bounties that are greater than `100000`: db.bounties.find({reward: {\$gt: 100000}})
+- Find the bounties that are less than `40000`: db.bounties.find({reward: {\$lt: 40000}})
+- Find the bounties that are less than or equal to `40000`: db.bounties.find({reward: {\$lte: 400000}})
 
-* Find the bounty with the hunter `Nebula`
-* Find the bounty with the ship `Waverider` OR `Serenity`
-* Find the bounty who is not captured AND has whose client is `Ayesha High Priestess of the Sovereign`
-* Increase all the bounties by 333333
-* Multiply all the bounties by 2
-* Add `Bobba Fett` as a hunter for `Malcolm Reynolds`
-* Add `Bobba Fett` as a hunter for the one that has the ship `Waverider`
-* Find and remove `Dengar` the bounty hunter
-* Upserts will insert a value if it doesn't exist, if it does it will update it
-* Try giving a new field of `lastSeen` to Han Solo, with the property `yesterday` set upsert to true
-* Try giving all bounties a new field of `lastSeen` - with a value of `last week` and set upsert to `false`
+* Find the bounty with the hunter `Nebula`:
+
+```cli
+db.bounties.find({hunters: "Nebula"})
+```
+
+- Find the bounty with the ship `Waverider` OR `Serenity`:
+
+```cli
+db.bounties.find({$or: [{ship: "Waverider"}, {ship: "Serenity"}]})
+```
+
+- Find the bounty who is not captured AND has whose client is `Ayesha High Priestess of the Sovereign`:
+
+```cli
+db.bounties.find({$and: [{captured: false}, {client: "Ayesha High Priestess of the Sovereign"}]})
+```
+
+- Increase all the bounties by 333333:
+
+```cli
+db.bounties.update({}, {$inc: {reward: 333333}}, {multi: true})
+```
+
+- Multiply all the bounties by 2
+
+```cli
+db.bounties.update({}, [{$set: {reward: { $multiply: [2, "$reward"] } } }], {multi: true})
+```
+
+- Add `Bobba Fett` as a hunter for `Malcolm Reynolds`
+- Add `Bobba Fett` as a hunter for the one that has the ship `Waverider`
+- Find and remove `Dengar` the bounty hunter
+- Upserts will insert a value if it doesn't exist, if it does it will update it
+- Try giving a new field of `lastSeen` to Han Solo, with the property `yesterday` set upsert to true
+- Try giving all bounties a new field of `lastSeen` - with a value of `last week` and set upsert to `false`
