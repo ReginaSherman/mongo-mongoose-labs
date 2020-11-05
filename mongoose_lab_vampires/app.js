@@ -161,7 +161,7 @@ Write Your Code Below
 //   db.close();
 // })
 
-//are from New York, New York, US or New Orleans, Louisiana, US
+//are from New York, New York, US or New Orleans, Louisiana, US -- USE OR OPERATOR
 // Vampire.find({ $or: [
 //   {location: "New York, New York, US"},
 //   {location: "New Orleans, Louisiana, US"}
@@ -170,14 +170,14 @@ Write Your Code Below
 //   db.close();
 // })
 
-//love brooding or being tragic
-// Vampire.find({ $or: [
-//   {loves: { $in: "brooding"}},
-//   {loves: { $in: "being tragic"}}
-// ]}, (err, vampires) => {
-//   console.log(vampires);
-//   db.close();
-// })
+//love brooding or being tragic -- USE OR OPERATOR
+Vampire.find(
+	{ $or: [{ loves: { $in: 'brooding' } }, { loves: { $in: 'being tragic' } }] },
+	(err, vampires) => {
+		console.log(vampires);
+		db.close();
+	}
+);
 
 //have more than 1000 victims or love marshmallows
 // Vampire.find({ $or: [
@@ -198,13 +198,14 @@ Write Your Code Below
 // })
 
 //love either frilly shirtsleeves or frilly collars
-// Vampire.find({ $or: [
-//   {loves: { $in: "frilly shirtsleeves"}},
-//   {loves: { $in: "frilly collars"}}
-// ]}, (err, vampires) => {
-//   console.log(vampires);
-//   db.close();
-// })
+//can use or operator as above or in operator as below
+// Vampire.find(
+// 	{ loves: { $in: ['frilly shirtsleeves', 'frilly collars'] } },
+// 	(err, vampires) => {
+// 		console.log(vampires);
+// 		db.close();
+// 	}
+// );
 
 //are not from rome
 // Vampire.find({  location: {  $ne: "Rome, Italy"  } }, (err, vampires) => {
@@ -219,15 +220,22 @@ Write Your Code Below
 // });
 
 //love at least one of the following: appearing innocent, trickery, lurking in rotting mansions, R&B music
-// Vampire.find({ $or: [
-//   {loves: { $in: "appearing innocent"}},
-//   {loves: { $in: "trickery"}},
-//   {loves: { $in: "lurking in rotting mansions"}},
-//   {loves: { $in: "R&B music"}},
-// ]}, (err, vampires) => {
-//   console.log(vampires);
-//   db.close();
-// })
+// Vampire.find(
+// 	{
+// 		loves: {
+// 			$in: [
+// 				'appearing innocent',
+// 				'trickery',
+// 				'lurking in rotting mansions',
+// 				'R&B music',
+// 			],
+// 		},
+// 	},
+// 	(err, vampires) => {
+// 		console.log(vampires);
+// 		db.close();
+// 	}
+// );
 
 //love ribbons but do not have brown eyes
 // Vampire.find({ $and: [
@@ -245,17 +253,23 @@ Write Your Code Below
 // })
 
 // do not love any of the following: [fancy cloaks, frilly shirtsleeves, appearing innocent, being tragic, brooding]
-// Vampire.find({ $and: [
-//   {loves: { $ne: "fancy cloaks"}},
-//   {loves: { $ne: "frilly shirtsleeves"}},
-//   {loves: { $ne: "appearing innocent"}},
-//   {loves: { $ne: "being tragic"}},
-//   {loves: { $ne: "brooding"}},
-//   ]
-// }, (err, vampires) => {
-//   console.log(vampires);
-//   db.close();
-// })
+// Vampire.find(
+// 	{
+// 		loves: {
+// 			$nin: [
+// 				'fancy cloaks',
+// 				'frilly shirtsleeves',
+// 				'appearing innocent',
+// 				'being tragic',
+// 				'brooding',
+// 			],
+// 		},
+// 	},
+// 	(err, vampires) => {
+// 		console.log(vampires);
+// 		db.close();
+// 	}
+// );
 
 //have not killed more than 200 people
 // Vampire.find({ victims: { $lte: 200}}, (err, vampires) => {
@@ -277,21 +291,14 @@ Write Your Code Below
 
 //replace the first male vampire with another whose name is 'Guy Man', and who has a key 'is_actually' with the value 'were-lizard'
 // Vampire.findOneAndUpdate(
-//   { gender: 'm' },
-//   { $set: {name: 'Guy Man'}},
-//   { new: true },
-//   (err, vampires) => {
-//     console.log(vampires);
-//     db.close();
-//   })
-// Vampire.findOneAndUpdate(
-//   { name: 'Guy Man' },
-//   { $set: {is_actually: 'were-lizard'}},
-//   { new: true },
-//   (err, vampires) => {
-//     console.log(vampires);
-//     db.close();
-//   })
+// 	{ gender: 'm' },
+// 	{ $set: { name: 'Guy Man', is_actually: 'were-lizard' } },
+// 	{ returnNewDocument: true, new: true, strict: false },
+// 	(err, vampires) => {
+// 		console.log(vampires);
+// 		db.close();
+// 	}
+// );
 
 //update eve to have gender m
 // Vampire.findOneAndUpdate(
