@@ -86,16 +86,40 @@ const newVampires = [
   }
 ]
 
-Vampire.create(newVampires, (error, vampire) => {
- if (error) {
-   //if there is an error console log it
-   console.log(error);
- } else {
-   // else show us the created tweet
-   console.log(vampire);
- }
- // get control of terminal back
- // else just use control c
- db.close();
-});
+// Vampire.create(newVampires, (error, vampire) => {
+//  if (error) {
+//    //if there is an error console log it
+//    console.log(error);
+//  } else {
+//    // else show us the created tweet
+//    console.log(vampire);
+//  }
+//  // get control of terminal back
+//  // else just use control c
+//  db.close();
+// });
 
+// Vampire.find({ gender: 'f'}, (err, vampire) => {
+//   console.log(vampire)
+//   db.close()
+// })
+
+// Vampire.find({victims: { $gte: 500 } }, (err, vampire) => {
+//   console.log(vampire)
+//   db.close()
+// })
+
+// Vampire.find({ victims: { $lte: 150} }, (err, vampire) => {
+//   console.log(vampire)
+//   db.close()
+// })
+
+// Vampire.find({ victims: { $ne: 210234 } }, (err, vampire) => {
+//   console.log(vampire)
+//   db.close()
+// })
+
+Vampire.find({ victims: { $gte: 150, $lte: 500 } }, (err, vampire) => {
+  console.log(vampire)
+  db.close()
+})
