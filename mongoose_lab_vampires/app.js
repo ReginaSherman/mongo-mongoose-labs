@@ -179,4 +179,22 @@ const newVampires = [
 //   db.close()
 // })
 
+// Vampire.find(  { loves: 'ribbons' }, { $not: { eye_color: 'brown' } } , (err, vampire) => {
+//   console.log(vampire)
+//   db.close()
+// })
 
+// Vampire.find(  { $not: { location: 'Rome, Italy' } } , (err, vampire) => {
+//   console.log(vampire)
+//   db.close()
+// })
+
+// Vampire.find(  { $not: { loves: { $in: ['fancy cloaks', 'frilly shirtsleeves', 'appearing innocent', 'being tragic', 'brooding']}}} , (err, vampire) => {
+//   console.log(vampire)
+//   db.close()
+// })
+
+// Vampire.find( { victims: { $not: { $gt: 200 } } }, (err, vampire) => {
+//   console.log(vampire)
+//   db.close()
+// })
