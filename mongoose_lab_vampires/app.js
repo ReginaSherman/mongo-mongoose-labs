@@ -119,7 +119,27 @@ const newVampires = [
 //   db.close()
 // })
 
-Vampire.find({ victims: { $gte: 150, $lte: 500 } }, (err, vampire) => {
-  console.log(vampire)
-  db.close()
-})
+// Vampire.find({ victims: { $gte: 150, $lte: 500 } }, (err, vampire) => {
+//   console.log(vampire)
+//   db.close()
+// // })
+
+// Vampire.find( { title: { $exists: true} }, (err, vampire) => {
+//   console.log(vampire)
+//   db.close()
+// })
+
+// Vampire.find( { victims: { $exists: false} }, (err, vampire) => {
+//   console.log(vampire)
+//   db.close()
+// })
+
+// Vampire.find( { title: { $exists: true}, victims: { $exists: false} }, (err, vampire) => {
+//   console.log(vampire)
+//   db.close()
+// })
+
+// Vampire.find( { victims: { $exists: true}, victims: { $gt: 1000} }, (err, vampire) => {
+//   console.log(vampire)
+//   db.close()
+// })
