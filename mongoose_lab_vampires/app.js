@@ -163,3 +163,20 @@ const newVampires = [
 //   console.log(vampire)
 //   db.close()
 // })
+
+// Vampire.find( { $or: [ {loves: 'frilly shirtsleeves'}, {loves: 'frilly collars'} ] }, (err, vampire) => {
+//   console.log(vampire)
+//   db.close()
+// })
+
+// Vampire.find( { loves: 'brooding' }, (err, vampire) => {
+//   console.log(vampire)
+//   db.close()
+// })
+
+// Vampire.find( { loves: { $in: ['appearing innocent', 'trickery', 'lurking in rotting mansions', 'R&B music'] } }, (err, vampire) => {
+//   console.log(vampire)
+//   db.close()
+// })
+
+
