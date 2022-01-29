@@ -143,3 +143,23 @@ const newVampires = [
 //   console.log(vampire)
 //   db.close()
 // })
+
+// Vampire.find( { $or: [ {location: 'New York, New York, US'}, {location: 'New Orleans, Louisiana, US'} ] }, (err, vampire) => {
+//   console.log(vampire)
+//   db.close()
+// })
+
+// Vampire.find( { $or: [ {loves: 'brooding'}, {loves: 'being tragic'} ] }, (err, vampire) => {
+//   console.log(vampire)
+//   db.close()
+// })
+
+// Vampire.find( { $or: [ { victims: { $gt: 1000 } }, {loves: 'marshmallows'} ] }, (err, vampire) => {
+//   console.log(vampire)
+//   db.close()
+// })
+
+// Vampire.find( { $or: [ {hair_color: 'red'}, {eye_color: 'green'} ] }, (err, vampire) => {
+//   console.log(vampire)
+//   db.close()
+// })
