@@ -198,3 +198,61 @@ const newVampires = [
 //   console.log(vampire)
 //   db.close()
 // })
+
+// Vampire.findOneAndUpdate( 
+//   { name: 'Claudia'},
+//   { $set: { name: 'Eve', portrayed_by: 'Tilda Swinton'} },
+//   { new: true, strict: false }, 
+//   (err, vampire) => {
+//     console.log(vampire)
+//     db.close()
+//   })
+
+// Vampire.findOneAndUpdate( 
+//   { gender: 'm'},
+//   { $set: { name: 'Guy-Man', is_actually: 'were-lizard'} },
+//   { new: true, strict: false }, 
+//   (err, vampire) => {
+//     console.log(vampire)
+//     db.close()
+//   })
+
+// Vampire.findOneAndUpdate( 
+//   { name: 'Eve'},
+//   { $set: { gender: 'm' } },
+//   { new: true, strict: false }, 
+//   (err, vampire) => {
+//     console.log(vampire)
+//     db.close()
+//   })
+    
+// Vampire.findOneAndUpdate( 
+//   { _id: '61f469115e82a40ce965dd4c' },
+//   { $rename: { 'name' : 'moniker' } },
+//   (err, vampire) => {
+//     console.log(vampire)
+//     db.close()
+//   })
+
+// Vampire.find( 
+//   { gender: 'f' },
+//   { $set: { gender: 'fems' } },
+//   (err, vampire) => {
+//     console.log(vampire)
+//     db.close()
+//   })
+
+// Vampire.findOneAndRemove( { hair_color: 'brown'}, (err, vampire) => { 
+//   console.log(vampire)
+//   db.close() 
+// })
+
+// Vampire.updateMany( { gender: 'f' }, { $set: { gender: 'fems' } }, (err, vampire) => {
+//     console.log(vampire)
+//     db.close()
+//   })
+
+Vampire.deleteMany( { eye_color: 'blue' }, (err, vampire) => {
+    console.log(vampire)
+    db.close()
+  })
